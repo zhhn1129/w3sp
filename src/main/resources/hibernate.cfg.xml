@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+   
+    <property name="hibernate.connection.provider_class">  
+        org.hibernate.connection.ProxoolConnectionProvider  
+    </property>  
+    <property name="hibernate.proxool.pool_alias">proxool</property>  
+    <property name="hibernate.proxool.xml">proxool.xml</property>  
+    <property name="hibernate.show_sql">true</property>  
+    <property name="hibernate.format_sql">false</property>  
+    <property name="dialect">org.hibernate.dialect.Oracle9Dialect</property>
+    <property name="hibernate.connection.autocommit">true</property>  
+  	
+    <mapping class="com.cernet.model.UserInfo"/>
+    
+    <mapping class="com.cernet.model.WebLeak"/>
+    
+    <mapping class="com.cernet.model.DataDict"/>
+    
+    <mapping class="com.cernet.model.Node"/>       
+    
+    <mapping class="com.cernet.utils.log.Actionlog"/>  
+    <mapping class="com.cernet.model.WebLeakHandle"/>  
+
+    <mapping class="com.cernet.model.WebleakAxisView"/>
+    <mapping class="com.cernet.model.webleakHandleLast1View"/>
+    <mapping class="com.cernet.model.WebLeakCView"/>
+    <mapping class="com.cernet.model.WebLeakNView"/>
+    <mapping class="com.cernet.model.WebLeakRealTimeView"/>
+    <mapping class="com.cernet.model.WebshellCorpView"/>
+    <mapping class="com.cernet.model.WebshellNodeView"/>
+    <mapping class="com.cernet.model.WebshellView"/>
+    <mapping class="com.cernet.model.Webshell"/>
+    <mapping class="com.cernet.model.WebshellHandle"/>
+    <mapping class="com.cernet.model.Botnet"/>
+    <mapping class="com.cernet.model.BotnetCorpView"/>
+    <mapping class="com.cernet.model.BotnetNodeView"/>
+    <mapping class="com.cernet.model.Article"/>
+	<mapping class="com.cernet.model.WebLeakInfo"/>
+    <mapping class="com.cernet.model.HighPush"/>
+    <mapping class="com.cernet.model.LeakColMonitor"/>
+     <mapping class="com.cernet.model.LeakPushMonitor"/>
+  </session-factory>
+</hibernate-configuration>

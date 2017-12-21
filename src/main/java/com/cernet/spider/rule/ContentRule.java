@@ -1,0 +1,23 @@
+/**
+ * 
+ */
+package com.cernet.spider.rule;
+
+/**
+ * Created by Eclipse.
+ *
+ * @author Gump
+ * @date   2013-10-31
+ */
+public class ContentRule extends Rule {
+  private PageRule pageRule;
+
+public PageRule getPageRule() {
+	return pageRule;
+}
+
+public void setPageRule(PageRule pageRule) {
+	this.pageRule = pageRule;
+}
+  
+}

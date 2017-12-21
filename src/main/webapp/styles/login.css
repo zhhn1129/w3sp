@@ -1,0 +1,60 @@
+@charset "utf-8";
+/* CSS Document */
+* {
+	padding:0;
+	margin:0;
+}
+body {
+	background-color:#3a6ea5;
+}
+.position {
+	width:570px;
+	margin:auto;
+}
+.login_title{
+	height:90px;
+	margin-top:80px;
+}
+.alignright{
+	text-align:right;
+	font-size:14px;
+}
+.login_main{
+	height:320px;
+	background:url(../images/login_main.jpg) no-repeat;
+	position:relative;
+	font-size:12px;
+}
+.red{
+	color:#F00;
+	font-size:12px;
+}
+.login_box{
+	position:absolute;
+	left:192px;
+	top:62px;
+}
+.login_box td{
+	padding:3px;
+}
+.text{
+	height:26px;
+	line-height:26px;
+	width:230px;
+}
+.checkbox{
+	position:absolute;
+	left: 259px;
+	top: 160px;
+	line-height:normal;
+	}
+.button{
+	background:url(../images/login_button_bg.jpg) repeat-x;
+	height:26px;
+	line-height:26px;
+	font-size:14px;
+	text-align:center;
+	width:60px;
+	cursor:pointer;
+	border:1px solid #999;
+}

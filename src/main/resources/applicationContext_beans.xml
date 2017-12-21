@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+	<bean id="wechatHelper" class="com.cernet.wechat.WechatHelper">
+		<property name="actionlogManager" ref="actionlogManager" />
+	</bean>
+
+	<bean id="actionLoger" class="com.cernet.utils.log.Log">
+		<property name="actionlogManager" ref="actionlogManager" />
+	</bean> 
+	
+    <bean id="actionlogManager" class="com.cernet.utils.log.ActionlogManagerImpl">
+		<constructor-arg ref="actionlogDao" />
+	</bean>
+	
+	<bean id="loginDao" class="com.cernet.dao.impl.LoginDaoHibernate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="loginManager" class="com.cernet.service.impl.LoginManagerImpl">
+        <constructor-arg ref="loginDao"/>
+    </bean>
+ 
+   <bean id="webLeakDao" class="com.cernet.dao.impl.WebLeakDaoHibernate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="webLeakManager" class="com.cernet.service.impl.WebLeakManagerImpl">
+        <constructor-arg ref="webLeakDao"/>
+    </bean>
+    
+    
+    <bean id="dataDictDao" class="com.cernet.dao.impl.DataDictDaoHibernate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="dataDictManager" class="com.cernet.service.impl.DataDictManagerImpl">
+        <constructor-arg ref="dataDictDao"/>
+    </bean>
+    
+     <bean id="actionlogDao" class="com.cernet.utils.log.ActionlogDaoHibernate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+       
+     <bean id="webLeakHandleDao" class="com.cernet.dao.impl.WebLeakHandleDaoHibernate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="webLeakHandleManager" class="com.cernet.service.impl.WebLeakHandleManagerImpl">
+        <constructor-arg ref="webLeakHandleDao"/>
+    </bean>
+    
+     <bean id="axisViewDao" class="com.cernet.dao.impl.AxisViewDaoHibernate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="axisViewManager" class="com.cernet.service.impl.AxisViewManagerImpl">
+        <constructor-arg ref="axisViewDao"/>
+    </bean>
+    
+    <bean id="handleLastDao" class="com.cernet.dao.impl.HandleLastDaoDaoHibernate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="handleLastManager" class="com.cernet.service.impl.HandleLastManagerImpl">
+        <constructor-arg ref="handleLastDao"/>
+    </bean>
+    
+    <bean id="webLeakCViewDao" class="com.cernet.dao.impl.WebLeakCViewDaoHibernate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="webLeakCViewManager" class="com.cernet.service.impl.WebLeakCViewManagerImpl">
+        <constructor-arg ref="webLeakCViewDao"/>
+    </bean>
+    
+    <bean id="webLeakNViewDao" class="com.cernet.dao.impl.WebLeakNViewDaoHibernate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="webLeakNViewManager" class="com.cernet.service.impl.WebLeakNViewManagerImpl">
+        <constructor-arg ref="webLeakNViewDao"/>
+    </bean>
+    
+    <bean id="webLeakRealTimeViewDao" class="com.cernet.dao.impl.WebLeakRealTimeViewDaoHibernate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="webLeakRealTimeViewManager" class="com.cernet.service.impl.WebLeakRealTimeViewManagerImpl">
+        <constructor-arg ref="webLeakRealTimeViewDao"/>
+    </bean>
+    
+    <bean id="webshellViewDao" class="com.cernet.dao.impl.WebshellViewDaoHibernate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="webshellViewManager" class="com.cernet.service.impl.WebshellViewManagerImpl">
+        <constructor-arg ref="webshellViewDao"/>
+    </bean>
+    
+    <bean id="webshellNodeViewDao" class="com.cernet.dao.impl.WebshellNodeViewDaoHibernate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="webshellNodeViewManager" class="com.cernet.service.impl.WebshellNodeViewManagerImpl">
+        <constructor-arg ref="webshellNodeViewDao"/>
+    </bean>
+    
+    <bean id="webshellCorpViewDao" class="com.cernet.dao.impl.WebshellCorpViewDaoHibernate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="webshellCorpViewManager" class="com.cernet.service.impl.WebshellCorpViewManagerImpl">
+        <constructor-arg ref="webshellCorpViewDao"/>
+    </bean>
+    
+    <bean id="webshellDao" class="com.cernet.dao.impl.WebshellDaoHibernate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="webshellManager" class="com.cernet.service.impl.WebshellManagerImpl">
+        <constructor-arg ref="webshellDao"/>
+    </bean>
+    
+    <bean id="webshellHandleDao" class="com.cernet.dao.impl.WebshellHandleDaoHibernate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="webshellHandleManager" class="com.cernet.service.impl.WebshellHandleManagerImpl">
+        <constructor-arg ref="webshellHandleDao"/>
+    </bean>
+    
+    <bean id="botnetDao" class="com.cernet.dao.impl.BotnetDaoHibernate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="botnetManager" class="com.cernet.service.impl.BotnetManagerImpl">
+        <constructor-arg ref="botnetDao"/>
+    </bean>
+    
+    <bean id="botnetCorpViewDao" class="com.cernet.dao.impl.BotnetCorpViewDaoHibernate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="botnetCorpViewManager" class="com.cernet.service.impl.BotnetCorpViewManagerImpl">
+        <constructor-arg ref="botnetCorpViewDao"/>
+    </bean>
+    
+    <bean id="botnetNodeViewDao" class="com.cernet.dao.impl.BotnetNodeViewDaoHibernate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="botnetNodeViewManager" class="com.cernet.service.impl.BotnetNodeViewManagerImpl">
+        <constructor-arg ref="botnetNodeViewDao"/>
+    </bean>
+    
+    <bean id="articleDao" class="com.cernet.dao.impl.ArticleDaoHibernate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="articleManager" class="com.cernet.service.impl.ArticleManagerImpl">
+        <constructor-arg ref="articleDao"/>
+    </bean>
+    
+	<bean id="webLeakInfoDao" class="com.cernet.dao.impl.WebLeakInfoDaoHibernate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="webLeakInfoManager" class="com.cernet.service.impl.WebLeakInfoManagerImpl">
+        <constructor-arg ref="webLeakInfoDao"/>
+    </bean>
+       <bean id="highPushDao" class="com.cernet.dao.impl.HighPushDaoHibernate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="highPushManager" class="com.cernet.service.impl.HighPushManagerImpl">
+        <constructor-arg ref="highPushDao"/>
+    </bean>
+   
+    <bean id="leakColMonitorDao" class="com.cernet.dao.impl.LeakColMonitorDaoHibernate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+        <bean id="leakColMonitorManager" class="com.cernet.service.impl.LeakColMonitorManagerImpl">
+        <constructor-arg ref="leakColMonitorDao"/>
+    </bean>
+    
+     <bean id="leakPushMonitorDao" class="com.cernet.dao.impl.LeakPushMonitorDaoHibernate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+        <bean id="leakPushMonitorManager" class="com.cernet.service.impl.LeakPushMonitorManagerImpl">
+        <constructor-arg ref="leakPushMonitorDao"/>
+    </bean>
+</beans>
+

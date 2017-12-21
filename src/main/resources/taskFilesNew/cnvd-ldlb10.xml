@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<!--
+		columnId：可对应数据库已定义的栏目Id columnURL：栏目的URL desc: 栏目简要描述 encoding:
+		页面编码（字符串处理时需要字符编码） delayTime:延时采集时间（如果>0,则该栏目下每采集一篇文章后做延时操作）
+	-->
+<task columnId="3020" columnURL="http://www.cnvd.org.cn/flaw/list.htm?&amp;max=100" desc="漏洞列表"
+	encoding="utf-8" delayTime="1" >
+	<articleList> <!-- 栏目中文章列表采集规则 -->
+		<startStr><!-- 文章列表HTML源码开始部分 -->
+			<![CDATA[<div id="flawList">]]>
+		</startStr>
+		<endStr><!-- 文章列表HTML源码结束部分 -->
+			<![CDATA[<div class="pages clearfix">]]>
+		</endStr>
+		<includedStrOfURL><![CDATA[]]></includedStrOfURL> <!-- 需采集文章的URL必须包含的字符串 -->
+		<excludedStrOfURL><![CDATA[]]></excludedStrOfURL> <!-- 需采集文章的URL必须不包含的字符串 -->
+	</articleList>
+	<articleView><!-- 栏目中文章查看视图采集规则 -->
+		<startStr><![CDATA[<div class="blkContainerSblk">]]></startStr> <!-- 文章查看HTML源码开始部分 -->
+		<endStr><![CDATA[<div class="content_line"></div>]]></endStr> <!-- 文章查看HTML源码结束部分 -->
+		<title> <!-- 文章标题采集规则 -->
+			<startStr><![CDATA[<h1 >]]></startStr> <!-- 文章标题HTML源码开始部分 -->
+			<endStr><![CDATA[</h1>]]></endStr> <!-- 文章标题HTML源码结束部分 -->
+			<prefix><![CDATA[]]></prefix> <!-- 文章标题前缀，采集后截取该前缀 -->
+			<suffix><![CDATA[]]></suffix> <!-- 文章标题后缀 ，采集后截取该后缀 -->
+			<filtedStrs><!-- 文章标题中需要过滤的字符串，可配置多个 -->
+				<filtedStr></filtedStr>
+			</filtedStrs>
+		</title>
+		<content> <!-- 文章正文采集规则 -->
+			<startStr><![CDATA[<div class="tableDiv">]]></startStr> <!-- 文章正文HTML源码开始部分 -->
+			<endStr><![CDATA[</div>         <div style="font-size: 0px; height: 0px; clear: both;"></div>]]></endStr> <!-- 文章正文HTML源码结束部分 -->
+			<page>
+				<signStr><![CDATA[]]></signStr><!-- 文章分页采集规则,signStr是文章分页标识串，通过该串识别该文章是否有分页-->
+				<startStr><![CDATA[]]></startStr> <!-- 文章分页HTML源码开始部分 -->
+				<endStr><![CDATA[]]></endStr> <!-- 文章分页HTML源码结束部分 -->
+				<includedStrOfURL><![CDATA[]]></includedStrOfURL> <!-- 文章分页URL必须包含的字符串 -->
+				<excludedStrOfURL><![CDATA[]]></excludedStrOfURL> <!--文章分页URL必须不包含的字符串 -->
+			</page>
+			<filtedStrs><!-- 文章正文中需要过滤的字符串，可配置多个 -->
+				<filtedStr></filtedStr>
+			</filtedStrs>
+		</content>
+		<pubTime> <!-- 文章发布时间采集规则，利用dateFormat进行匹配提前 -->
+			<startStr><![CDATA[]]></startStr> <!-- 文章发布时间HTML源码开始部分 -->
+			<endStr><![CDATA[]]></endStr> <!-- 文章发布时间HTML源码结束部分 -->
+			<!--
+				文章发布时间原格式
+			-->
+			<dateFormat><![CDATA[yyyy-MM-dd]]></dateFormat>
+
+		</pubTime>
+		<from> <!-- 文章来源采集规则 -->
+			<startStr><![CDATA[（编辑：]]></startStr> <!-- 文章来源HTML源码开始部分 -->
+			<endStr><![CDATA[）&nbsp;]]></endStr> <!-- 文章来源HTML源码结束部分 -->
+			<prefix><![CDATA[]]></prefix> <!-- 文章来源前缀，采集后截取该前缀 -->
+			<filtedStrs><!-- 文章来源中需要过滤的字符串，可配置多个 -->
+				<filtedStr></filtedStr>
+			</filtedStrs>
+		</from>
+	</articleView>
+</task>

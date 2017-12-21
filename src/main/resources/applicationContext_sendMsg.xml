@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+	<bean id="sendMsgManager" class="com.cernet.service.impl.SendMsgManagerImpl">
+		<property name="webLeakInfoDao" ref="webLeakInfoDao" />
+		<property name="leakPushMonitorDao" ref="leakPushMonitorDao" />
+	</bean>
+	<bean id="actionLoger" class="com.cernet.utils.log.Log">
+		<property name="actionlogManager" ref="actionlogManager" />
+	</bean>
+	<bean id="actionlogManager" class="com.cernet.utils.log.ActionlogManagerImpl">
+		<constructor-arg ref="actionlogDao" />
+	</bean>
+	<bean id="actionlogDao" class="com.cernet.utils.log.ActionlogDaoHibernate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="cnvdMsger" class="com.cernet.web.action.GetCnvdMsgAction">
+		<property name="highPushManager" ref="highPushManager" />
+		<property name="webLeakInfoManager" ref="webLeakInfoManager" />
+		<property name="leakPushMonitorManager" ref="leakPushMonitorManager" />
+	</bean>
+    <bean id="highPusher" class="com.cernet.web.action.HighPushAction">
+		<property name="highPushManager" ref="highPushManager" />
+		<property name="leakColMonitorManager" ref="leakColMonitorManager" />
+	</bean>
+	<bean id="highPushManager" class="com.cernet.service.impl.HighPushManagerImpl">
+		<constructor-arg ref="highPushDao" />
+	</bean>
+	<bean id="highPushDao" class="com.cernet.dao.impl.HighPushDaoHibernate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean> 
+    <bean id="webLeakInfoManager" class="com.cernet.service.impl.WebLeakInfoManagerImpl">
+		<constructor-arg ref="webLeakInfoDao" />
+	</bean>
+	<bean id="webLeakInfoDao" class="com.cernet.dao.impl.WebLeakInfoDaoHibernate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+     <bean id="leakPushMonitorManager" class="com.cernet.service.impl.LeakPushMonitorManagerImpl">
+		<constructor-arg ref="leakPushMonitorDao" />
+	</bean>
+	<bean id="leakPushMonitorDao" class="com.cernet.dao.impl.LeakPushMonitorDaoHibernate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="leakColMonitorManager" class="com.cernet.service.impl.LeakColMonitorManagerImpl">
+		<constructor-arg ref="leakColMonitorDao" />
+	</bean>
+	<bean id="leakColMonitorDao" class="com.cernet.dao.impl.LeakColMonitorDaoHibernate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+   
+   <!--注入SendLeakMsgAction里的两个属性  -->
+   <bean id="sendLeakMsger" class="com.cernet.web.action.SendLeakMsgAction">
+		<property name="webLeakInfoManager" ref="webLeakInfoManager" />
+		<property name="webLeakInfoDao" ref="webLeakInfoDao" />
+		<property name="leakPushMonitorManager" ref="leakPushMonitorManager" />
+	</bean> 
+   <bean id="sendLeakMsgerTwice" class="com.cernet.web.action.SendLeakMsgAction">
+		<property name="webLeakInfoManager" ref="webLeakInfoManager" />
+		<property name="webLeakInfoDao" ref="webLeakInfoDao" />
+		<property name="leakPushMonitorManager" ref="leakPushMonitorManager" />
+	</bean> 
+</beans>

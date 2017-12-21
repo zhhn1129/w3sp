@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+  
+<struts>
+	<constant name="struts.action.extension" value="do"></constant>
+	
+	<package name="noLogin" namespace="/" extends="struts-default">
+  	
+	    
+        <action name="login" class="com.cernet.web.action.LoginAction" method="login">
+            <result name="success">/index.jsp</result>
+            <result name="error" >/login.jsp</result>
+        </action>
+        <action name="loginOut" class="com.cernet.web.action.LoginAction" method="loginOut">
+            <result name="success">/login.jsp</result>
+        </action>
+        <action name="getArticleList" class="com.cernet.web.action.ArticleAction" method="getArticleList">
+	     	 <result name="success">/WEB-INF/jsp/articleList.jsp</result>
+	    </action>     
+	     <action name="getArticleById" class="com.cernet.web.action.ArticleAction" method="getArticleById">
+	     	 <result name="success">/WEB-INF/jsp/showArticle.jsp</result>
+	     </action>
+	    <action name="ajaxGetAl" class="com.cernet.web.action.ArticleAction" method="getMore">
+	    </action>
+	    <action name="showLeakList" class="com.cernet.web.action.ArticleAction" method="showLeakList">
+	     	 <result name="success">/WEB-INF/jsp/showLeakList.jsp</result>
+	    </action>
+	    <action name="showLeakForLeakType" class="com.cernet.web.action.ArticleAction" method="showLeakForLeakType">
+	     	 <result name="success">/WEB-INF/jsp/showLeakList.jsp</result>
+	    </action>
+	    <action name="sendMsgInit" class="com.cernet.web.action.ArticleAction" method="sendMsgInit">
+	     	 <result name="success">/WEB-INF/jsp/sendMsgInit.jsp</result>
+	    </action>
+	    <action name="sendSingleMsg" class="com.cernet.web.action.ArticleAction" method="sendSingleMsg">
+	    	 <result name="error">/WEB-INF/jsp/sendMsgInit.jsp</result>
+	    	 <result name="success">/WEB-INF/jsp/sendMsgInit.jsp</result>
+	    </action>
+	    <action name="showScoLeakList" class="com.cernet.web.action.SendLeakMsgAction" method="showScoLeakList">
+		<result name="success">/WEB-INF/jsp/showLeakList.jsp</result>
+		</action>
+		<action name="showScoreLeakList" class="com.cernet.web.action.SendLeakMsgAction" method="showScoreLeakList">
+		<result name="success">/WEB-INF/jsp/showLeakList.jsp</result>
+		</action>
+    </package>
+	
+	<package name="default" extends="struts-default">
+	  
+		<interceptors>
+            <interceptor class="com.cernet.vipbw.interceptor.LoginInterceptor" name="authority"/>
+            
+            <interceptor-stack name="mydefault">
+                <interceptor-ref name="defaultStack"/>
+                <interceptor-ref name="authority"/>
+            </interceptor-stack>
+        </interceptors>
+        
+        <default-interceptor-ref name="mydefault" />
+		 <global-results>
+            <result name="login">/login.jsp</result>
+            <result name="exception">/WEB-INF/pages/exception.jsp</result>
+            <result name="error">/WEB-INF/pages/error.jsp</result>
+        </global-results>
+	
+	 
+		 <action name="webLeakList" class="com.cernet.web.action.WebLeakAction" method="list">
+	      <result name="success">/WEB-INF/jsp/webLeakList.jsp</result>
+	     </action>
+		
+		 <action name="webLeakSubList" class="com.cernet.web.action.WebLeakAction" method="subList">
+	     
+	     </action>
+	     
+	     <action name="webLeakSubList2" class="com.cernet.web.action.WebLeakAction" method="subList2">
+	     
+	     </action>
+		
+		
+		 <action name="editWebLeak" class="com.cernet.web.action.WebLeakAction" method="edit">
+	        <result name="success">/WEB-INF/jsp/webLeakForm.jsp</result>
+	     </action>
+		
+		
+		  <action name="search" class="com.cernet.web.action.WebLeakAction" method="edit">
+	        <result name="success">/WEB-INF/jsp/webLeakForm_search.jsp</result>
+	     </action>
+	     
+	     <action name="save" class="com.cernet.web.action.WebLeakAction" method="save">
+	     	<result name="noRight" type="redirect">webLeakList.do</result>
+	        <result type="redirect">webLeakList.do</result>
+	     </action>
+	     
+	     <action name="editWebLeakHandle" class="com.cernet.web.action.WebLeakAction" method="editWebLeakHandle">
+	        <result name="success">/WEB-INF/jsp/webLeakHandleForm.jsp</result>
+	     </action>
+		
+		<action name="saveWLH" class="com.cernet.web.action.WebLeakAction" method="saveWLH">
+	        <result type="redirect">editWebLeakHandle.do?id=${wlhId}</result>
+	     </action>
+	     
+	     <action name="nodeResult" class="com.cernet.web.action.TestResultAction" method="nodeResult">
+	        <result name="success">/WEB-INF/jsp/nodeResult.jsp</result>
+	        <result name="xls">/WEB-INF/jsp/exportToXls.jsp</result>
+	     </action>
+	     
+	     <action name="axisResult" class="com.cernet.web.action.TestResultAction" method="axisResult">
+	        <result name="success">/WEB-INF/jsp/axisResult.jsp</result>
+	        <result name="xls">/WEB-INF/jsp/exportToXls.jsp</result>
+	     </action>
+	     
+	     <action name="changePWD" class="com.cernet.web.action.LoginAction" method="changePWD">
+	        <result name="success">/WEB-INF/jsp/pwdForm.jsp</result>
+	     </action>
+	     
+	     <action name="savePWD" class="com.cernet.web.action.LoginAction" method="savePWD">
+	        <result name="success">/WEB-INF/jsp/pwdOK.jsp</result>
+	     </action>
+	     
+	      <action name="checkOldPWD" class="com.cernet.web.action.LoginAction" method="checkOldPWD">
+	     </action>
+	     
+	     <action name="webshellList" class="com.cernet.web.action.WebshellAction" method="webshellList">
+	        <result name="success">/WEB-INF/jsp/webshellList.jsp</result>
+	     </action>
+	     
+	     <action name="webshellList2" class="com.cernet.web.action.WebshellAction" method="webshellList2">
+	     </action>
+	     
+	     <action name="webshellList3" class="com.cernet.web.action.WebshellAction" method="webshellList3">
+	     </action>
+	     
+	     <action name="editWebshell" class="com.cernet.web.action.WebshellAction" method="editWebshell">
+	        <result name="success">/WEB-INF/jsp/webshellEditForm.jsp</result>
+	     </action>
+	     
+	     <action name="saveWebshell" class="com.cernet.web.action.WebshellAction" method="saveWebshell">
+	        <result type="redirect">webshellList.do</result>
+	     </action>
+	     
+	     <action name="editWebshellHandle" class="com.cernet.web.action.WebshellAction" method="editWebshellHandle">
+	        <result name="success">/WEB-INF/jsp/webshellHandleForm.jsp</result>
+	     </action>
+	     
+	     <action name="saveWSH" class="com.cernet.web.action.WebshellAction" method="saveWSH">
+	        <result type="redirect">editWebshellHandle.do?id=${wshId}</result>
+	     </action>
+	     
+	      <action name="botnetList" class="com.cernet.web.action.BotnetAction" method="botnetList">
+	        <result name="success">/WEB-INF/jsp/botnetList.jsp</result>
+	     </action>
+	     
+	     <action name="botnetList2" class="com.cernet.web.action.BotnetAction" method="botnetList2">
+	     </action>
+	     
+	     <action name="botnetList3" class="com.cernet.web.action.BotnetAction" method="botnetList3">
+	     </action>
+	     
+	     <action name="searchList" class="com.cernet.web.action.WebLeakAction" method="searchList">
+	     	 <result name="success">/WEB-INF/jsp/searchWebLeakList.jsp</result>
+	     </action>
+	     
+	     <action name="updateWeChatUser" class="com.cernet.web.action.ArticleAction" method="updateWeChatUser">
+	     </action>
+	     
+		<action name="updateUser" class="com.cernet.web.action.ArticleAction" method="updateUserInit">
+	     	 <result name="success">/WEB-INF/jsp/updateUserInit.jsp</result>
+	    </action>
+	    
+		<action name="sendMsgToUser" class="com.cernet.web.action.ArticleAction" method="sendMsgToUser">
+	    </action>
+	    
+	    <action name="leakMsgMenu" class="com.cernet.web.action.ArticleAction" method="leakMsgMenu">
+	     	 <result name="success">/WEB-INF/jsp/leakMsgMenu.jsp</result>
+	    </action>
+	    
+ 		<action name="sendMsgForLeakType" class="com.cernet.web.action.ArticleAction" method="sendMsgForLeakType">
+		</action> 
+		<action name="showLogInfo" class="com.cernet.utils.log.Log" method="logInfo">
+			<result name="success">/WEB-INF/jsp/logInfo.jsp</result>
+		</action>
+		
+      	<action name="showLeakInfo" class="com.cernet.web.action.HighPushAction" method="leakInfo">
+		<result name="success">/WEB-INF/jsp/leakInfo.jsp</result>
+		</action>
+		
+		<action name="showLeakColMonitorInfo" class="com.cernet.web.action.LeakMonitorAction" method="leakColMonitorInfo">
+		<result name="success">/WEB-INF/jsp/leakColMonitorInfo.jsp</result>
+		</action>
+        <action name="showLeakPushMonitorInfo" class="com.cernet.web.action.LeakMonitorAction" method="leakPushMonitorInfo">
+		<result name="success">/WEB-INF/jsp/leakPushMonitorInfo.jsp</result>
+		</action>
+		
+		<!--新加入的ajax获取后台数据方法  -->
+		<action name="getCNVD" class="com.cernet.web.action.LeakMonitorAction" method="ajaxGetCNVD">
+		</action>
+		<action name="getSH" class="com.cernet.web.action.LeakMonitorAction" method="ajaxGetSH">
+		</action>
+		<action name="getPushCNVD" class="com.cernet.web.action.LeakMonitorAction" method="ajaxGetPushCNVD">
+		</action>
+		<action name="getStruts2Info1" class="com.cernet.web.action.WebLeakAction" method="ajaxGetStruts2Info1">
+		</action>
+		<action name="getStruts2Info0" class="com.cernet.web.action.WebLeakAction" method="ajaxGetStruts2Info0">
+		</action>
+		<action name="getStruts2Info3" class="com.cernet.web.action.WebLeakAction" method="ajaxGetStruts2Info3">
+		</action>
+		<action name="getStruts2Info2" class="com.cernet.web.action.WebLeakAction" method="ajaxGetStruts2Info2">
+		</action>
+		
+		<!--漏洞处置监控 -->
+		<action name="showLeakStruts2" class="com.cernet.web.action.WebLeakAction" method="showLeakStruts2">
+		<result name="success">/WEB-INF/jsp/struts2Info.jsp</result>
+		</action>
+		<!-- 月报 -->
+		<action name="monthReport" class="com.cernet.web.action.WebLeakAction" method="monthReport">
+		<result name="success">/WEB-INF/jsp/monthReport.jsp</result>
+		</action>
+		
+		<action name="saveHighPush" class="com.cernet.web.action.HighPushAction" method="saveHighPush">
+		</action> 
+		<action name="sendMsgToWechat" class="com.cernet.web.action.GetCnvdMsgAction" method="sendMsgToWechat">
+		</action> 
+	</package>
+</struts>

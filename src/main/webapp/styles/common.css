@@ -1,0 +1,157 @@
+@charset "utf-8";
+/* CSS Document */
+* {
+	padding:0;
+	margin:0; 
+}
+body {
+	background:url(../images/bg.jpg) top repeat-x #f5f5f5;
+	font-size:12px;
+	color:#333;
+	line-height:28px;
+	font-family:"宋体";
+}
+ul {
+	list-style:none;
+}
+.center {
+	text-align:center;
+}
+a:link, a:visited {
+	color:#0a4a8e;
+	text-decoration:none;
+}
+a:hover, a:active {
+	color:#03C;
+	text-decoration:underline;
+}
+table {
+	border-collapse:collapse;
+	width:100%;
+}
+th {
+	white-space:nowrap;
+}
+td, th {
+	text-align:left;
+	padding:5px;
+	line-height:18px;/*background-color:#fff;*/
+}
+/*.last_tr td{
+	background-color:#c8dbf0;
+	font-weight:bold;
+}*/.even,.even td {
+	background-color:#f7f9f9;
+}
+.odd {
+	background-color:#fff;
+}
+tr.last_tr td {
+	background-color:#dee9f4;
+	font-weight:bold;
+}
+.button {
+	border:1px solid #317ec3;
+	border-bottom:1px solid #1c588b;
+	background:url(../images/button_bg.jpg) top repeat-x;
+	height:20px;
+	line-height:20px;
+	text-align:center;
+	padding:0 8px;
+	color:#fff;
+	font-size:12px;
+	cursor:pointer;
+}
+.nobutton {
+	border:1px solid #ccc;
+	border-bottom:1px solid #ccc;
+	background:url(../images/th_bg.jpg) center repeat-x;
+	height:20px;
+	line-height:20px;
+	text-align:center;
+	padding:0 8px;
+	color:#333;
+	font-size:12px;
+	cursor:pointer;
+}
+.bold {
+	font-weight:bold;
+}
+
+.btn ul li {
+	float:left;
+	margin-right:10px;
+}
+.alignright {
+	text-align:right;
+}
+
+.getout{
+	position:absolute;
+	right:10px;
+	top:30px;
+}
+
+
+
+
+/****************/
+
+
+.main {
+	padding:0 5px;
+	margin:5px 0 35px;/*
+	min-height:500px;
+	height:auto !important;
+	height:500px;*/
+	/*min-width:1200px;
+	width:auto !important;
+	width:1200px;*/
+}
+.main_table {
+	border:1px solid #cccccc;
+}
+.main_table td, .main_table th {
+	border:1px solid #cccccc;
+}
+.main_table th,.td_th{
+	background:url(../images/th_bg.jpg) top repeat-x;
+	font-weight:bold;
+}
+.detail_table th {
+	background:#e4f2fd;
+}
+.third_table th {
+	background:#c1e0fa;
+}
+.td_padding {
+	padding-left:30px;
+}
+
+a.current {
+	font-weight:bold;
+}
+.lightred {
+	background:#fce7f3;
+}
+.lightgreen {
+	background:#e3fce3;
+}
+.footer {
+	height:28px;
+	line-height:28px;
+	background:url(../images/footer_bg.jpg) top repeat-x;
+	color:#fff;
+	width:100%;
+	text-align:right;
+	position:fixed;
+	bottom:0;
+}
+.footer span {
+	padding-right:10px;
+}
+/*文本框样式*/
+.settext{
+	height:20px;
+	line-height:20px;
+}

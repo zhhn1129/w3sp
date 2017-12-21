@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://cxf.apache.org/jaxws
+	http://cxf.apache.org/schema/jaxws.xsd">
+
+	<bean id="dataBaseExporter" class="com.cernet.spider.exporter.DataBaseExporter">
+		<property name="dataSource">
+			<ref bean="dataSource"/>
+		</property> 
+	</bean>
+
+	<bean id="spider" class="com.cernet.spider.Spider">
+		<property name="exporter" ref="dataBaseExporter" />
+		<property name="taskFiles">
+			<value>classpath:taskFilesNew</value>
+		</property>
+	</bean>
+
+	<bean name="grapJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass">
+			<value>com.cernet.task.GrapTask</value>
+		</property>
+		<property name="jobDataAsMap">
+			<map>
+				<!-- timeout属性设定了当服务器启动后,多久第一次调用 -->
+				<entry key="timeout">
+					<value>0</value>
+				</entry>
+				<entry key="spider">
+					<ref bean="spider"/>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	
+	<bean name="sendMsgJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass">
+			<value>com.cernet.task.SendMsgTask</value>
+		</property>
+		<property name="jobDataAsMap">
+			<map>
+				<!-- timeout属性设定了当服务器启动后,
+				多久第一次调用 -->
+				<entry key="timeout">
+					<value>0</value>
+				</entry>
+				<entry key="sendMsgManager">
+					<ref bean="sendMsgManager"/>
+				</entry>
+				<entry key="actionLoger">
+					<ref bean="actionLoger"/>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	
+	<bean name="sendCnvdMsgJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass">
+			<value>com.cernet.task.SendCnvdMsgTask</value>
+		</property>
+		<property name="jobDataAsMap">
+			<map>
+				<!-- timeout属性设定了当服务器启动后,
+				多久第一次调用 -->
+				<entry key="timeout">
+					<value>0</value>
+				</entry>
+				
+				<entry key="cnvdMsger">
+					<ref bean="cnvdMsger"/>
+				</entry>
+				<entry key="highPusher">
+					<ref bean="highPusher"/>
+				</entry>
+				<entry key="actionLoger">
+					<ref bean="actionLoger"/>
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="sendMsgTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="sendMsgJob" />
+		</property>
+		<property name="cronExpression">
+			<value>30 28 15 ? * *</value>
+			
+			<!--<value>0 0 15 ? * WED</value>-->
+			<!--每周三下午3点-->
+		</property>
+	</bean>
+	
+	<bean id="sendCnvdMsgTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="sendCnvdMsgJob" />
+		</property>
+		<property name="cronExpression">
+		<!--	<value>0 0/60 * * * ?</value>-->
+			<value>15 29 15 * * ?</value> 
+		</property>
+	</bean>
+
+
+	<bean id="grapTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="grapJob" />
+		</property>
+		<property name="cronExpression">
+			<!-- 时间大小由小到大排列，
+			从秒开始，顺序为 秒，分，时，天，月，年    *为任意 ？为无限制 -->
+			<!--
+				具体时间设定可参考
+				 "0/10 * * * * ?"			每10秒触发
+				"0 0 12 * * ?"				每天中午12点触发
+			  "0 15 10		?	*	*"		每天上午10:15触发
+			 "0 15 10 * * ?"		每天上午10:15触发
+				"0 15 10 * * ? *"			每天上午10:15触发
+				"0	15	10 * * ? 2005"		2005年的每天上午10:15触发
+				"0 * 14 * * ?"		在每天下午2点到下午2:59期间的每1分钟触发
+				"0	0/5	14 * * ?"			在每天下午2点到下午2:55期间的每5分钟触发 
+				"0 0/5 14,18 * * ?"			在每天下午2点到2:55期间和下午6点到6:55期间的每5分钟触发
+				"0	0-5	14 * * ?"			在每天下午2点到下午2:05期间的每1分钟触发
+				 "0 10,44 14 ? 3 WED"		每年三月的星期三的下午2:10和2:44触发
+				"0	15	10 ? * MON-FRI" 周一至周五的上午10:15触发
+				 "0 15 10 15 * ?"			每月15日上午10:15触发
+				 "0 15		10		L		* ?" 每月最后一日的上午10:15触发 
+				 "0 15 10 ? * 6L"	每月的最后一个星期五上午10:15触发
+				  "0 15 10 ? * 6L	2002-2005"	2002年至2005年的每月的最后一个星期五上午10:15触发
+				"0 15 10 ? * 6#3" 每月的第三个星期五上午10:15触发
+				每隔5秒执行一次：*/5
+				*
+				*
+				* * ? 每隔1分钟执行一次：0 */1 * * * ? 每天23点执行一次：0 0 23 * * ? 每天凌晨1点执行一次：0 0 1 * *
+				?
+				每月1号凌晨1点执行一次：0
+				0 1 1 * ? 每月最后一天23点执行一次：0 0 23 L * ? 每周星期天凌晨1点实行一次：0 0 1 ? *
+				L
+				在26分、29分、33分执行一次：0	26,29,33 * * * ? 每天的0点、13点、18点、21点都执行一次：0 0 0,13,18,21 *
+				*
+				?
+			-->
+			<!--<value>0 0 9 * * ?</value> -->
+			 <value>45 29 15 * * ?</value>
+		</property>
+	</bean>
+    
+    <!-- 对漏洞等级为10的漏洞的推送6个月以内未修复的漏洞信息1天推送1次 设定是：每天上午九点 -->
+    <!-- <bean name="sendScoreMsgJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass">
+			<value>com.cernet.task.SendScoreMsgTask</value>
+		</property>
+		<property name="jobDataAsMap">
+			<map>
+				timeout属性设定了当服务器启动后,
+				多久第一次调用
+				<entry key="timeout">
+					<value>0</value>
+				</entry>
+				<entry key="sendLeakMsger">
+					<ref bean="sendLeakMsger"/>
+				</entry>
+			</map>
+		</property>
+	</bean>
+    <bean id="sendScoreMsgTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="sendScoreMsgJob" />
+		</property>
+		<property name="cronExpression">
+			<value>30 58 16 * * ?</value>
+			<value>0 0 8 ? * MON</value> 
+			
+		</property>
+	</bean> -->
+	<!-- 对漏洞等级为10的漏洞的推送6个月以上未修复的漏洞信息1天推送2次 设定是：每天上午九点 和下午五点 -->
+    <!-- <bean name="sendScoMsgJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass">
+			<value>com.cernet.task.SendScoMsgTask</value>
+		</property>
+		<property name="jobDataAsMap">
+			<map>
+				timeout属性设定了当服务器启动后,
+				多久第一次调用 
+				<entry key="timeout">
+				<value>0</value>
+				</entry>
+				<entry key="sendLeakMsgerTwice">
+				<ref bean="sendLeakMsgerTwice"/>
+				</entry>
+			</map>
+		</property>
+	</bean>
+    <bean id="sendScoMsgTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="sendScoMsgJob" />
+		</property>
+		<property name="cronExpression">
+			<value>0 55 10 * * ?</value>
+			<value>0 0 8,15 ? * MON</value>
+			</property>
+	</bean> -->
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="grapTrigger" />
+				<ref bean="sendMsgTrigger" />
+				<ref bean="sendCnvdMsgTrigger" />
+				<!-- <ref bean="sendScoreMsgTrigger" /> 
+				 <ref bean="sendScoMsgTrigger" /> -->
+			</list>
+		</property>
+	</bean>
+</beans>
